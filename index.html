@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SubScribe Bot - Your YouTube Buddy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #00ff9d;
+            --dark-bg: #0a0a0a;
+        }
+        body {
+            background-color: var(--dark-bg);
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+            overflow-x: hidden;
+            cursor: none; /* Hide default cursor */
+        }
+        .neon-text {
+            text-shadow: 0 0 10px var(--neon-green);
+            color: var(--neon-green);
+        }
+        .cyber-border {
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+        .feature-card {
+            background: rgba(0, 255, 157, 0.1);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 0 30px var(--neon-green);
+        }
+
+        /* Floating Grid Background */
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: 
+                linear-gradient(to right, rgba(0, 255, 157, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 255, 157, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Glow effect on scroll */
+        .glow-on-scroll {
+            transition: all 0.3s ease;
+        }
+        .glow-on-scroll.active {
+            text-shadow: 0 0 20px var(--neon-green);
+            box-shadow: 0 0 30px var(--neon-green);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-green);
+            border-radius: 5px;
+        }
+
+        /* Custom cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--neon-green);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease;
+        }
+        .cursor-ring {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+        }
+
+        /* FAQ Accordion styles */
+        .faq-item {
+            border-bottom: 1px solid rgba(0, 255, 157, 0.3);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        /* Logo glow effect */
+        .logo-container {
+            position: relative;
+        }
+        .logo-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--neon-green) 0%, transparent 70%);
+            opacity: 0.3;
+            filter: blur(10px);
+            animation: logoGlow 2s ease-in-out infinite;
+        }
+        @keyframes logoGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Cyber Grid Background -->
+    <div class="cyber-grid"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-ring"></div>
+
+    <!-- Navigation -->
+    <nav class="p-4 cyber-border mb-8 sticky top-0 z-50 backdrop-filter backdrop-blur-lg">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center logo-container">
+                <div class="logo-glow"></div>
+                <img src="/api/placeholder/50/50" alt="SubScribe Logo" class="mr-3 relative z-10 animate__animated animate__pulse animate__infinite">
+                <h1 class="text-2xl font-bold neon-text">SubScribe Bot</h1>
+            </div>
+            <div>
+                <a href="#" class="neon-text px-4 py-2 cyber-border rounded hover:bg-green-900 transition">Add to Discord</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4">
+        <!-- Hero Section -->
+        <section class="text-center mb-16 reveal">
+            <h2 class="text-5xl font-bold mb-6 neon-text animate__animated animate__fadeIn">Your Ultimate YouTube Companion</h2>
+            <p class="text-xl text-gray-300 mb-8 animate__animated animate__fadeIn animate__delay-1s">Track, compare, and compete with YouTube statistics right from your Discord server!</p>
+            <div class="cyber-border p-8 rounded-lg glow-on-scroll">
+                <img src="/api/placeholder/800/400" alt="Bot Preview" class="mx-auto rounded-lg">
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <div class="feature-card p-6 rounded-lg cyber-border reveal">
+                <h3 class="text-xl font-bold mb-4 neon-text">Subscriber Leaderboards</h3>
+                <p>Create competitive leaderboards to track and compare YouTube subscriber counts among server members.</p>
+            </div>
+            <div class="feature-card p-6 rounded-lg cyber-border reveal">
+                <h3 class="text-xl font-bold mb-4 neon-text">Channel Statistics</h3>
+                <p>Get detailed analytics and insights about any YouTube channel instantly.</p>
+            </div>
+            <div class="feature-card p-6 rounded-lg cyber-border reveal">
+                <h3 class="text-xl font-bold mb-4 neon-text">Real-time Tracking</h3>
+                <p>Monitor subscriber count changes and milestone achievements in real-time.</p>
+            </div>
+            <div class="feature-card p-6 rounded-lg cyber-border reveal">
+                <h3 class="text-xl font-bold mb-4 neon-text">Channel Comparison</h3>
+                <p>Compare multiple YouTube channels side by side with detailed statistics.</p>
+            </div>
+            <div class="feature-card p-6 rounded-lg cyber-border reveal">
+                <h3 class="text-xl font-bold mb-4 neon-text">Growth Analytics</h3>
+                <p>Track channel growth rates and predict future milestones.</p>
+            </div>
+            <div class="feature-card p-6 rounded-lg cyber-border reveal">
+                <h3 class="text-xl font-bold mb-4 neon-text">Custom Alerts</h3>
+                <p>Set up notifications for subscriber milestones and important channel events.</p>
+            </div>
+        </section>
+
+        <!-- New FAQ Section -->
+        <section class="container mx-auto px-4 mb-16 reveal">
+            <h2 class="text-4xl font-bold mb-8 neon-text text-center">Frequently Asked Questions</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="faq-item p-4 cursor-pointer">
+                    <div class="faq-question flex justify-between items-center">
+                        <h3 class="text-xl neon-text">How do I add SubScribe Bot to my server?</h3>
+                        <span class="transform transition-transform">▼</span>
+                    </div>
+                    <div class="faq-answer mt-4 text-gray-300">
+                        Simply click the "Add to Discord" button and follow the authorization process. You'll need administrator permissions on your server.
+                    </div>
+                </div>
+                <div class="faq-item p-4 cursor-pointer">
+                    <div class="faq-question flex justify-between items-center">
+                        <h3 class="text-xl neon-text">Is SubScribe Bot free to use?</h3>
+                        <span class="transform transition-transform">▼</span>
+                    </div>
+                    <div class="faq-answer mt-4 text-gray-300">
+                        Yes! SubScribe Bot is completely free to use with premium features available for enhanced functionality.
+                    </div>
+                </div>
+                <div class="faq-item p-4 cursor-pointer">
+                    <div class="faq-question flex justify-between items-center">
+                        <h3 class="text-xl neon-text">How often are statistics updated?</h3>
+                        <span class="transform transition-transform">▼</span>
+                    </div>
+                    <div class="faq-answer mt-4 text-gray-300">
+                        Statistics are updated in real-time for premium users and every 5 minutes for free users.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="text-center mb-16 reveal">
+            <h2 class="text-4xl font-bold mb-8 neon-text">Ready to Level Up Your Discord Server?</h2>
+            <div class="flex justify-center gap-4">
+                <a href="#" class="px-8 py-4 cyber-border rounded-lg neon-text hover:bg-green-900 transition">Add to Discord</a>
+                <a href="#" class="px-8 py-4 cyber-border rounded-lg text-white hover:bg-gray-800 transition">Join Support Server</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-green-500 mt-16 py-8">
+        <div class="container mx-auto px-4 text-center text-gray-400">
+            <p>&copy; 2024 SubScribe Bot. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cursor movement
+        const cursor = document.querySelector('.cursor');
+        const cursorRing = document.querySelector('.cursor-ring');
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.transform = `translate(${mouseX - 10}px, ${mouseY - 10}px)`;
+            cursorRing.style.transform = `translate(${mouseX - 20}px, ${mouseY - 20}px)`;
+        });
+
+        // Particle system with cursor repulsion
+        const particles = [];
+        const particleCount = 50;
+        const repulsionRadius = 100;
+        const repulsionStrength = 0.5;
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.innerHTML = `<svg width="20" height="20" viewBox="0 0 20 20">
+                <circle cx="10" cy="10" r="4" fill="${Math.random() > 0.5 ? '#00ff9d' : '#fff'}" opacity="0.5"/>
+            </svg>`;
+            
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            particle.style.transform = `translate(${x}px, ${y}px)`;
+            
+            document.body.appendChild(particle);
+            particles.push({
+                element: particle,
+                x: x,
+                y: y,
+                vx: 0,
+                vy: 0
+            });
+        }
+
+        function updateParticles() {
+            particles.forEach(particle => {
+                const dx = mouseX - particle.x;
+                const dy = mouseY - particle.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < repulsionRadius) {
+                    const force = (repulsionRadius - distance) * repulsionStrength;
+                    particle.vx -= (dx / distance) * force;
+                    particle.vy -= (dy / distance) * force;
+                }
+
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+                
+                // Apply friction
+                particle.vx *= 0.95;
+                particle.vy *= 0.95;
+
+                // Keep particles within bounds
+                if (particle.x < 0) particle.x = window.innerWidth;
+                if (particle.x > window.innerWidth) particle.x = 0;
+                if (particle.y < 0) particle.y = window.innerHeight;
+                if (particle.y > window.innerHeight) particle.y = 0;
+
+                particle.element.style.transform = `translate(${particle.x}px, ${particle.y}px)`;
+            });
+
+            requestAnimationFrame(updateParticles);
+        }
+
+        // Initialize particles
+        for (let i = 0; i < particleCount; i++) {
+            createParticle();
+        }
+        updateParticles();
+
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                               const wasActive = item.classList.contains('active');
+                faqItems.forEach(i => i.classList.remove('active'));
+                if (!wasActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll reveal
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            const glowElements = document.querySelectorAll('.glow-on-scroll');
+            
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+
+            glowElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                } else {
+                    element.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', reveal);
+        reveal(); // Initial check
+    </script>
+</body>
+</html>
