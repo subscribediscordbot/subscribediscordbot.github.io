@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SubScribe Bot - Command Documentation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #00ff9d;
+            --dark-bg: #0a0a0a;
+        }
+        body {
+            background-color: var(--dark-bg);
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        .neon-text {
+            text-shadow: 0 0 10px var(--neon-green);
+            color: var(--neon-green);
+        }
+        .cyber-border {
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+        .command-card {
+            background: rgba(0, 255, 157, 0.1);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+        }
+        .command-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 0 30px var(--neon-green);
+        }
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: 
+                linear-gradient(to right, rgba(0, 255, 157, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 255, 157, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--neon-green);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease;
+        }
+        .cursor-ring {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+        }
+        .command-category {
+            transition: all 0.3s ease;
+        }
+        .command-category:hover {
+            background: rgba(0, 255, 157, 0.2);
+        }
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+        .category-icon {
+            font-size: 1.5em;
+            margin-right: 0.5em;
+        }
+        .copy-button {
+            transition: all 0.3s ease;
+        }
+        .copy-button:hover {
+            background: var(--neon-green);
+            color: var(--dark-bg);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="cyber-grid"></div>
+    <div class="cursor"></div>
+    <div class="cursor-ring"></div>
+
+    <nav class="p-4 cyber-border mb-8 sticky top-0 z-50 backdrop-filter backdrop-blur-lg">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center">
+                <h1 class="text-2xl font-bold neon-text">SubScribe Bot Commands</h1>
+            </div>
+            <div>
+                <a href="#" class="neon-text px-4 py-2 cyber-border rounded hover:bg-green-900 transition">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4">
+        <section class="text-center mb-16">
+            <h2 class="text-5xl font-bold mb-6 neon-text animate__animated animate__fadeIn">Command Documentation</h2>
+            <p class="text-xl text-gray-300 mb-8 animate__animated animate__fadeIn animate__delay-1s">Everything you need to know about using SubScribe Bot</p>
+        </section>
+
+        <div class="grid grid-cols-1 gap-8 mb-16">
+            <!-- Statistics Commands -->
+            <div class="command-category p-6 rounded-lg cyber-border">
+                <h3 class="text-2xl font-bold mb-6 neon-text flex items-center">
+                    <span class="category-icon">📊</span>Statistics Commands
+                </h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="command-card p-4 rounded-lg">
+                        <h4 class="font-bold mb-2 neon-text">/stats</h4>
+                        <p class="text-gray-300 mb-2">Get detailed statistics for a YouTube channel</p>
+                        <div class="bg-black bg-opacity-50 p-2 rounded">
+                            <code class="text-green-400">/stats PewDiePie</code>
+                            <button class="copy-button ml-2 px-2 py-1 rounded-md text-xs cyber-border">Copy</button>
+                        </div>
+                    </div>
+                    <div class="command-card p-4 rounded-lg">
+                        <h4 class="font-bold mb-2 neon-text">/compare</h4>
+                        <p class="text-gray-300 mb-2">Compare statistics between two channels</p>
+                        <div class="bg-black bg-opacity-50 p-2 rounded">
+                            <code class="text-green-400">/compare Markiplier Jacksepticeye</code>
+                            <button class="copy-button ml-2 px-2 py-1 rounded-md text-xs cyber-border">Copy</button>
+                        </div>
+                    </div>
+                    <div class="command-card p-4 rounded-lg">
+                        <h4 class="font-bold mb-2 neon-text">/channelgrowth</h4>
+                        <p class="text-gray-300 mb-2">View channel growth statistics over time</p>
+                        <div class="bg-black bg-opacity-50 p-2 rounded">
+                            <code class="text-green-400">/channelgrowth MrBeast</code>
+                            <button class="copy-button ml-2 px-2 py-1 rounded-md text-xs cyber-border">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tracking Commands -->
+            <div class="command-category p-6 rounded-lg cyber-border">
+                <h3 class="text-2xl font-bold mb-6 neon-text flex items-center">
+                    <span class="category-icon">📈</span>Tracking Commands
+                </h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="command-card p-4 rounded-lg">
+                        <h4 class="font-bold mb-2 neon-text">/setchannel</h4>
+                        <p class="text-gray-300 mb-2">Set a YouTube channel to track</p>
+                        <div class="bg-black bg-opacity-50 p-2 rounded">
+                            <code class="text-green-400">/setchannel VideoGameDunkey</code>
+                            <button class="copy-button ml-2 px-2 py-1 rounded-md text-xs cyber-border">Copy</button>
+                        </div>
+                    </div>
+                    <!-- More tracking commands... -->
+                </div>
+            </div>
+
+            <!-- Content Commands -->
+            <div class="command-category p-6 rounded-lg cyber-border">
+                <h3 class="text-2xl font-bold mb-6 neon-text flex items-center">
+                    <span class="category-icon">🎥</span>Content Commands
+                </h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="command-card p-4 rounded-lg">
+                        <h4 class="font-bold mb-2 neon-text">/latestvideo</h4>
+                        <p class="text-gray-300 mb-2">Get the most recent video from a channel</p>
+                        <div class="bg-black bg-opacity-50 p-2 rounded">
+                            <code class="text-green-400">/latestvideo TechLinked</code>
+                            <button class="copy-button ml-2 px-2 py-1 rounded-md text-xs cyber-border">Copy</button>
+                        </div>
+                    </div>
+                    <!-- More content commands... -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-green-500 mt-16 py-8">
+        <div class="container mx-auto px-4 text-center text-gray-400">
+            <p>&copy; 2024 SubScribe Bot. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cursor movement
+        const cursor = document.querySelector('.cursor');
+        const cursorRing = document.querySelector('.cursor-ring');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+            cursorRing.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`;
+        });
+
+        // Copy button functionality
+        document.querySelectorAll('.copy-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.parentElement.querySelector('code').textContent;
+                navigator.clipboard.writeText(code);
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        });
+
+        // Command card hover effect
+        document.querySelectorAll('.command-card').forEach(card => {
+            card.addEventListener('mouseover', () => {
+                cursorRing.style.width = '60px';
+                cursorRing.style.height = '60px';
+            });
+            
+            card.addEventListener('mouseout', () => {
+                cursorRing.style.width = '40px';
+                cursorRing.style.height = '40px';
+            });
+        });
+    </script>
+</body>
+</html>
