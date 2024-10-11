@@ -31,7 +31,7 @@ As the author, **you cannot use this project without my permission**. If you hav
 COPYRIGHT TO THE STUDIO
 
 NEXUS BOTWORK INTERACTIVES C 2024
-https://github.com/user-attachments/assets/4cfdad1f-c300-4c23-a6be-05321cba32c9
+![image](https://github.com/user-attachments/assets/4cfdad1f-c300-4c23-a6be-05321cba32c9)
 
 ## Nexus Botwork Interactives LLC.
 A Small Startup Discord Bot Focused Studio, We Prioritizes the use and Make of Discord Bot
