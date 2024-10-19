@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SubScribe Bot - Terms of Service</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #00ff9d;
+            --dark-bg: #0a0a0a;
+        }
+        body {
+            background-color: var(--dark-bg);
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        .neon-text {
+            text-shadow: 0 0 10px var(--neon-green);
+            color: var(--neon-green);
+        }
+        .cyber-border {
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: 
+                linear-gradient(to right, rgba(0, 255, 157, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 255, 157, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--neon-green);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease;
+        }
+        .cursor-ring {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+        }
+        .glow-on-hover:hover {
+            text-shadow: 0 0 20px var(--neon-green);
+            transition: text-shadow 0.3s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="cyber-grid"></div>
+    <div class="cursor"></div>
+    <div class="cursor-ring"></div>
+
+    <header class="p-4 cyber-border mb-8 sticky top-0 z-50 backdrop-filter backdrop-blur-lg">
+        <div class="container mx-auto flex items-center justify-between">
+            <h1 class="text-2xl font-bold neon-text">SubScribe Bot - Terms of Service</h1>
+            <a href="#" class="neon-text px-4 py-2 cyber-border rounded hover:bg-green-900 transition">Back to Home</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 mb-16">
+        <div class="cyber-border p-8 rounded-lg max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 neon-text">Terms of Service</h2>
+            
+            <section class="mb-8">
+                <h3 class="text-xl font-bold mb-4 neon-text">1. Acceptance of Terms</h3>
+                <p>By using the SubScribe Discord Bot ("the Bot"), you agree to be bound by these Terms of Service ("ToS"). If you do not agree to these terms, please do not use the Bot.</p>
+            </section>
+
+            <section class="mb-8">
+                <h3 class="text-xl font-bold mb-4 neon-text">2. Description of Service</h3>
+                <p>SubScribe Discord Bot is a YouTube tracker that allows users to track subscribe counts and participate in server-wide leaderboards.</p>
+            </section>
+
+            <section class="mb-8">
+                <h3 class="text-xl font-bold mb-4 neon-text">3. Use of the Bot</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>The Bot is free to use, with certain limitations in place. Premium features are available for a fee to lift these limitations.</li>
+                    <li>Users are prohibited from abusing the Bot or attempting to exploit its functionalities.</li>
+                    <li>The Bot utilizes the YouTube API. By using the Bot, you also agree to be bound by YouTube's Terms of Service.</li>
+                </ul>
+            </section>
+
+            <section class="mb-8">
+                <h3 class="text-xl font-bold mb-4 neon-text">4. Data Collection</h3>
+                <p>The Bot does not collect or store any user data.</p>
+            </section>
+
+            <section class="mb-8">
+                <h3 class="text-xl font-bold mb-4 neon-text">5. Availability and Performance</h3>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>The Bot is hosted on a small server, which may affect its performance or availability.</li>
+                    <li>We do not guarantee uninterrupted or error-free service.</li>
+                </ul>
+            </section>
+
+            <section class="mb-8">
+                <h3 class="text-xl font-bold mb-4 neon-text">6. Limitations of Liability</h3>
+                <p>We are not responsible for any damages or losses resulting from your use of the Bot or any interruptions in its service.</p>
+            </section>
+
+            <section class="mb-8">
+                <h3 class="text-xl font-bold mb-4 neon-text">7. Modifications to the Service</h3>
+                <p>We reserve the right to modify or discontinue the Bot at any time without notice.</p>
+            </section>
+
+            <section class="mb-8">
+                <h3 class="text-xl font-bold mb-4 neon-text">8. Contact</h3>
+                <p>For any questions or concerns regarding these Terms of Service or the Bot itself, please join our Discord server at <a href="https://discord.gg/BXkBqa6ArD" class="neon-text glow-on-hover">https://discord.gg/BXkBqa6ArD</a>.</p>
+            </section>
+
+            <section>
+                <h3 class="text-xl font-bold mb-4 neon-text">9. Acceptance</h3>
+                <p>By using the SubScribe Discord Bot, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="border-t border-green-500 py-8">
+        <div class="container mx-auto px-4 text-center text-gray-400">
+            <p>&copy; 2024 SubScribe Bot. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const cursor = document.querySelector('.cursor');
+        const cursorRing = document.querySelector('.cursor-ring');
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.transform = `translate(${mouseX - 10}px, ${mouseY - 10}px)`;
+            cursorRing.style.transform = `translate(${mouseX - 20}px, ${mouseY - 20}px)`;
+        });
+    </script>
+</body>
+</html>
